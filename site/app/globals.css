@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/* White Land palette: gallery white, plaster, bare concrete, ash wood, ink */
+@theme {
+  --color-paper: #f5f5f2;
+  --color-plaster: #e9e8e3;
+  --color-concrete: #a8a69f;
+  --color-ash: #cdb89a;
+  --color-ink: #22211e;
+}
+
+@theme inline {
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Archivo's width axis: the wordmark and headings run extra-wide */
+@utility font-wide {
+  font-stretch: 125%;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+::selection {
+  background: var(--color-ash);
+  color: var(--color-ink);
+}

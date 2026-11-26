@@ -1,0 +1,8 @@
+node_modules/
+.next/
+*.log
+*.tsbuildinfo
+next-env.d.ts
+white-land.zip
+site/public/menu/
+.env*
