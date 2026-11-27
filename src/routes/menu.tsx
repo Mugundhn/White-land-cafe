@@ -1,0 +1,19 @@
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { ArrowLeft, ArrowUpRight, Coffee, ShoppingBag } from 'lucide-react'
+import { SiteNav } from '@/components/site'
+import { ORDER_URL } from '@/lib/content'
+import { getMenu } from '@/server/menu'
+
+export const Route = createFileRoute('/menu')({
+  loader: () => getMenu(),
+  pendingComponent: () => <main className="min-h-svh bg-paper px-[4vw] pt-36"><p role="status">Opening the menu…</p></main>,
+  errorComponent: () => <main className="min-h-svh px-[4vw] py-32"><h1 className="section-title">A moment at the counter.</h1><p className="mt-6">We couldn’t open the menu. Please try again in a moment.</p><Link to="/" className="primary-button mt-6">Back to White Land</Link></main>,
+  component: MenuPage,
+})
+function MenuPage() {
+  const rows = Route.useLoaderData().filter(p => !p.hidden)
+  const categories = [...new Map(rows.map(p => [p.categoryId, p.category])).entries()]
+  return <><SiteNav /><main className="mx-auto min-h-svh max-w-7xl px-[4vw] pb-16 pt-32"><Link to="/" className="inline-flex items-center gap-2 text-sm text-ink/70 hover:text-ink"><ArrowLeft size={15} /> Back to White Land</Link><div className="mt-9 flex flex-wrap items-end justify-between gap-5 border-b border-concrete/40 pb-9"><div><p className="mb-4 text-xs uppercase tracking-[.18em] text-ink/65">At White Land</p><h1 className="section-title">The menu</h1></div><p className="max-w-xs text-sm leading-relaxed text-ink/65">Coffee, bagels and pressed sandwiches.<br />Made for a slow morning.</p></div>
+    {!rows.length ? <section className="my-14 rounded-[28px] border border-concrete/30 bg-plaster/50 px-6 py-16 text-center sm:py-24"><span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-paper text-ink"><Coffee size={27} strokeWidth={1.2} /></span><h2 className="mt-7 text-3xl font-medium tracking-tight">A fresh page, a fresh start.</h2><p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ink/65">The menu hasn’t been imported yet. There are no products, prices or orders here. Once the café’s menu is imported, you’ll find it on this page.</p><Link to="/" hash="coffee" className="primary-button mt-7">Explore our coffee <ArrowUpRight size={15} /></Link></section> : <div className="space-y-16 pt-12">{categories.map(([id, title]) => <section key={id}><h2 className="mb-6 text-3xl font-semibold tracking-tight">{title.trim()}</h2><div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">{rows.filter(p => p.categoryId === id).map(p => <article key={`${id}-${p.id}`} className="min-w-0"><div className="aspect-[4/3] overflow-hidden rounded-2xl bg-plaster">{p.imageUrl ? <img src={p.imageUrl} alt={p.title} loading="lazy" className="h-full w-full object-cover" /> : <span className="flex h-full items-center justify-center text-ink/65"><ShoppingBag size={26} strokeWidth={1} aria-label="Product photograph unavailable" /></span>}</div><div className="mt-4 flex items-baseline justify-between gap-4"><h3 className="text-lg font-medium">{p.title}</h3><p className="shrink-0 text-sm text-ink/70">RM {(p.priceMinor / 100).toFixed(2)}</p></div></article>)}</div></section>)}</div>}
+    <section className="mt-12 grid gap-6 border-t border-concrete/40 pt-8 sm:grid-cols-[1fr_auto] sm:items-center"><div><h2 className="text-lg font-medium">Delivery & takeaway</h2><p className="mt-2 max-w-xl text-sm leading-relaxed text-ink/65">The original site links to Beep for ordering and payment. That is a separate service; its menu, availability and checkout have not been migrated or checked.</p></div><a href={ORDER_URL} target="_blank" rel="noopener noreferrer" className="secondary-button w-fit">Open original Beep ordering <ArrowUpRight size={15} /></a></section><p className="mt-12 text-xs text-ink/60">No payment is taken on this site.</p></main></>
+}
