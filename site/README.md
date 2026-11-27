@@ -74,5 +74,5 @@ If your project uses a different folder (for example `src/components`), update t
 
 ## Added in this build
 - **Scroll effects:** hero window that opens (existing), lit-up paragraph (existing), plus a top scroll-progress line, a pinned **Favourites** section that slides sideways as you scroll (`components/site/favourites.tsx`, photos and prices read from the menu snapshot via `lib/menu.ts`), parallax photos (`parallax.tsx`) and fade-up reveals (`reveal.tsx`). All respect reduced-motion.
-- **Ordering:** every "Order" link now opens the flip-book menu at `/menu/` (`MENU_URL` in `lib/content.ts`); its checkout continues on Beep. `scripts/sync-menu.mjs` copies the menu from the folder above (`D:\Nov`) into `public/menu` before `dev`/`build`, so edit the menu there, not in `public/menu`.
+- **Ordering:** every "Order" link opens the flip-book menu at `/menu/`, now a React route (`app/(menu)/menu`, components in `components/menu/`, data in `lib/menu-data.ts` and `data/menu.snapshot.json`). The page flip uses the `page-flip` package. Its checkout continues on Beep.
 - **Dependencies:** `next` bumped to 15.1.12 (15.1.6 has a published security advisory).

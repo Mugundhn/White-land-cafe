@@ -7,16 +7,14 @@
     "build": "next build",
     "build:static": "node scripts/build-static.mjs",
     "start": "next start",
-    "lint": "next lint",
-    "sync-menu": "node scripts/sync-menu.mjs",
-    "predev": "node scripts/sync-menu.mjs",
-    "prebuild": "node scripts/sync-menu.mjs"
+    "lint": "next lint"
   },
   "dependencies": {
     "clsx": "^2.1.1",
     "lucide-react": "0.468.0",
     "motion": "^12.4.7",
     "next": "^15.1.12",
+    "page-flip": "^2.0.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.0.1"
