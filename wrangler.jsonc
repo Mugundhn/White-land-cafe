@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "white-land-cafe-site-cloud",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "main": "@tanstack/react-start/server-entry",
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "white-land-cafe-site-cloud-db",
+      "database_id": "bfd65278-2766-46d1-a5c2-92b79e57f3a0",
+      "migrations_dir": "migrations"
+    }
+  ]
+}
